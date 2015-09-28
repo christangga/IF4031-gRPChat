@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package simplechat;
+
+option java_multiple_files = true;
+option java_package = "io.grpc.examples.simplechat";
+option java_outer_classname = "SimpleChatProto";
+
+service SimpleChat {
+    rpc Login(UserRequest) returns (StatusResponse) {};
+    rpc SetNickname(NickRequest) returns (StatusResponse) {};
+    rpc JoinChannel(ChannelRequest) returns (StatusResponse) {};
+    rpc LeaveChannel(ChannelRequest) returns (StatusResponse) {};
+    rpc Broadcast(BroadcastRequest) returns (StatusResponse) {};
+    rpc Chat(ChatRequest) returns (StatusResponse) {};
+    rpc Exit(UserRequest) returns (StatusResponse) {};
+    rpc Refresh(UserRequest) returns (MessageResponse) {};
+}
+
+message UserRequest {
+    string username = 1;
+}
+
+message NickRequest {
+    string currentName = 1;
+    string newName = 2;
+}
+
+message ChannelRequest {
+    string username = 1;
+    string channelName = 2;
+}
+
+message BroadcastRequest {
+    string username = 1;
+    string message = 2;
+}
+
+message ChatRequest {
+    string username = 1;
+    string channelName = 2;
+    string message = 3;
+}
+
+message StatusResponse {
+    int32 status = 1;
+}
+
+message MessageResponse {
+    string message = 1;
+}
